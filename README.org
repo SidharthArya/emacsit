@@ -1,0 +1,16 @@
+#+TITLE: EMACSIT
+#+AUTHOR: Sidharth Arya
+
+Emacsit is a new package manager for emacs. It's somewhat inspired from vim-plug. 
+
+* Introduction
+
+Emacsit is a package manager for people who would like to mess with the emacs packages. Emacsit allows you to easily clone the required packages from any git repository and immediately put it in your emacs load file. It works on very basic functions, and it doesn't want you to stop your work while packages are downloading or compiling. 
+
+
+* To Do
+- [ ] Compiling
+- [ ] Updating 
+- [ ] Cleaning
+
+
