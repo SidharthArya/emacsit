@@ -1,4 +1,4 @@
-(setq emacsit::savedir "/home/arya/.emacs.d/packages")
+;; emacsit.el -- Packages manager
 
 (defun emacsit::preprocess(a)
   "Preprocess list"
@@ -33,6 +33,8 @@
   (if (file-directory-p (concat a "/lisp"))
       (add-to-list 'load-path (format "%s/lisp" a))
     (add-to-list 'load-path (format "%s" a)))
+  (if (file-directory-p (concat a "/lib"))
+      (add-to-list 'load-path (format "%s/lib" a)))
    )
 
 (defun emacsit::get()
@@ -54,6 +56,6 @@
   )
 (defun emacsit::dirclean()
   "Directory Clean"
-  
+
 )
 (provide 'emacsit)
