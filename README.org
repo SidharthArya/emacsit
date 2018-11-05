@@ -22,6 +22,7 @@ Add this to your ~.emacs~ file.
 			  sidhartharya10/emacs-ide-mode
 			  sidhartharya10/emacs-essentials
 			  sidhartharya10/emacs-easymotion
+			  sidhartharya10/emacs-fugitive
 			  sidhartharya10/emacsit
 			  magnars/expand-region.el	
 			  emacs-evil/evil

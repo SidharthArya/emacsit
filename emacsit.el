@@ -21,7 +21,7 @@
       (progn
 	(setq emacsit::dir (car (cdr (split-string a "@"))))
 	(setq emacsit::url (car (split-string a "@")))
-	(async-shell-command (format "git clone %s %s" emacsit::url emacsit::dir)))
+	(async-shell-command (format "git clone --recursive %s %s" emacsit::url emacsit::dir)))
     )
   a
   )
