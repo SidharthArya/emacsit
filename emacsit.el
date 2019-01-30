@@ -1,5 +1,5 @@
 ;; emacsit.el -- Packages manager
-
+(require 'subr-x)
 (defun emacsit::preprocess(a)
   "Preprocess list"
   (if (not (equal (member "" (split-string (format "%s" a) "/")) nil))
@@ -25,17 +25,33 @@
     )
   a
   )
- 
+(defun emacsit::update(a)
+  "Update all packages"
+  (if (not (equal a " "))
+      (progn
+	(setq emacsit::dir (car (cdr (split-string a "@"))))
+	(setq emacsit::url (car (split-string a "@")))
+	(async-shell-command (format "cd %s && git pull " emacsit::dir)))
+    )
+  )
+(defun emacsit::update-all()
+  "Update all packages"
+  (interactive)				
+  (mapcar 'emacsit::update (mapcar 'emacsit::preprocess emacsit::packages)))
   
 (defun emacsit::loadPackage(a)
   "Something for me"
   (setq a (car (cdr (split-string a "@"))))
-  (if (file-directory-p (concat a "/lisp"))
-      (add-to-list 'load-path (format "%s/lisp" a))
-    (add-to-list 'load-path (format "%s" a)))
-  (if (file-directory-p (concat a "/lib"))
-      (add-to-list 'load-path (format "%s/lib" a)))
-   )
+  (add-to-list 'load-path a)
+  (mapcar (lambda (b) (if (not (equal b "")) (add-to-list 'load-path b))) (split-string (string-trim (shell-command-to-string (format "find %s -regextype sed -regex '.*/lisp'" a)) "\n")))
+    (mapcar (lambda (b) (if (not (equal b "")) (add-to-list 'load-path b))) (split-string (string-trim (shell-command-to-string (format "find %s -regextype sed -regex '.*/lib'" a)) "\n")))
+;;  (if (file-directory-p (concat a "/lisp"))
+ ;;     (add-to-list 'load-path (format "%s/lisp" a))
+  ;;  (add-to-list 'load-path (format "%s" a)))
+  ;;(if (file-directory-p (concat a "/lib"))
+   ;;   (add-to-list 'load-path (format "%s/lib" a)))
+  )
+
 
 (defun emacsit::get()
   "Get the required packages from github"
