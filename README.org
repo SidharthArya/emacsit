@@ -40,11 +40,13 @@ Following keybindings can be used.
 (define-key global-map (kbd "C-x p g")  'emacsit::get)
 (define-key global-map (kbd "C-x p l")  'emacsit::load)
 (define-key global-map (kbd "C-x p b")  'emacsit::byte-compile-all)
+(define-key global-map (kbd "C-x p u")  'emacsit::update)
 #+END_SRC
 
 - Use ~C-x p g~ to downlaod packages.
 - Use ~C-x p l~ to load packages.
 - Use ~C-x p b~ to byte compile packages.
+- Use ~C-x p b~ to byte update packages.
 
 The two functions *emacsit::get* and *emacsit::load* fetch the required packages and append then to your load path respectively.
 These functions are also interactively callable, so, if you don't want to fetch the packages every time you start emacs, remove emacsit::get from your configuration.
