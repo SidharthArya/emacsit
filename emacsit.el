@@ -21,10 +21,20 @@
       (progn
 	(setq emacsit::dir (car (cdr (split-string a "@"))))
 	(setq emacsit::url (car (split-string a "@")))
-	(async-shell-command (format "git clone --depth=1 --recursive %s %s" emacsit::url emacsit::dir)))
+	(async-shell-command (format "git clone --depth=1 --recursive %s %s && pushd %s && if [ -f Makefile ]; then make all; fi && popd" emacsit::url emacsit::dir emacsit::dir)))
     )
   a
   )
+(defun emacsit::clone-byte-compile(a)
+  "Clone Something for me"
+  (if (not (equal a " "))
+      (progn
+	(setq emacsit::dir (car (cdr (split-string a "@"))))
+	(setq emacsit::url (car (split-string a "@")))
+	(if (not (file-exists-p (concat emacsit::dir "/Makefile")))
+	    (byte-recompile-directory emacsit::dir 0))))
+  a)
+
 (defun emacsit::update(a)
   "Update all packages"
   (if (not (equal a " "))
@@ -37,7 +47,12 @@
 (defun emacsit::update-all()
   "Update all packages"
   (interactive)				
-  (mapcar 'emacsit::update (mapcar 'emacsit::preprocess emacsit::packages)))
+  (mapcar 'emacsit::update (mapcar 'emacsit::preprocess emacsit::packages))
+  )
+(defun emacsit::byte-compile-all()
+  "Byte Compile"
+  (interactive)
+    (mapcar 'emacsit::clone-byte-compile (mapcar 'emacsit::preprocess emacsit::packages)))
   
 (defun emacsit::loadPackage(a)
   "Something for me"

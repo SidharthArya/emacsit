@@ -7,37 +7,55 @@ Emacsit is a new package manager for emacs. It's somewhat inspired from vim-plug
 
 * Introduction
 
-Emacsit is a package manager for people who would like to mess with the emacs packages. Emacsit allows you to easily clone the required packages from any git repository and immediately put it in your emacs load file. It works on very basic functions, and it doesn't want you to stop your work while packages are downloading or compiling. 
+ The motivation behind emacsit is to let people easily get any package, from any source. Emacsit allows you to easily clone the required packages from any git repository and immediately put it in your emacs load file. It works on very basic functions, and it doesn't cause any freezes while it manages your packages. Some people do not care about putting there packages up on MELPA or ELPA, yet there packages are pretty good. Emacsit has been create for using such packages.
 
 * Basic Usage
+
 All you have to do for configuration is to load the emacsit directory to your load path or load emacsit.el directly, and add a variable emacsit::packages which is the list of packages you want to install. 
-Add this to your ~.emacs~ file.
+#+BEGIN_SRC bash
+git clone --depth=1 $HOME/.emacs.d/packages/sidhartharya10/emacsit
+#+END_SRC
+
+Add this to your ~.emacs~ file. 
 #+BEGIN_SRC emacs-lisp
 (add-to-list load-path "path-to-emacsit.el directory")
 (require 'emacsit)
-(setq emacsit::packages '(
+(setq emacsit::packages '( ;; List of packages you need
 			  abo-abo/avy
 			  creichert/ido-vertical-mode.el
 			  jwiegley/use-package
-			  sidhartharya10/emacs-ide-mode
-			  sidhartharya10/emacs-essentials
-			  sidhartharya10/emacs-easymotion
-			  sidhartharya10/emacs-fugitive
 			  sidhartharya10/emacsit
 			  magnars/expand-region.el	
 			  emacs-evil/evil
 			  https://code.orgmode.org/bzg/org-mode
 ))
 (setq emacsit::savedir "~/.emacs.d/packages")
-(emacsit::get)
 (emacsit::load)
 #+END_SRC
 
+Following keybindings can be used.
+#+BEGIN_SRC emacs-lisp
+(define-prefix-command 'emacsit)
+(define-key global-map (kbd "C-x p")  'emacsit)
+(define-key global-map (kbd "C-x p g")  'emacsit::get)
+(define-key global-map (kbd "C-x p l")  'emacsit::load)
+(define-key global-map (kbd "C-x p b")  'emacsit::byte-compile-all)
+#+END_SRC
+
+- Use ~C-x p g~ to downlaod packages.
+- Use ~C-x p l~ to load packages.
+- Use ~C-x p b~ to byte compile packages.
+
 The two functions *emacsit::get* and *emacsit::load* fetch the required packages and append then to your load path respectively.
 These functions are also interactively callable, so, if you don't want to fetch the packages every time you start emacs, remove emacsit::get from your configuration.
+
+
+* Set Back
+- cannot compile cask packages
+
 * To Do
-- [ ] Compiling
-- [ ] Updating 
+- [X] Compiling
+- [X] Updating 
 - [ ] Cleaning
 
   
