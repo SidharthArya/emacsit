@@ -53,11 +53,12 @@ These functions are also interactively callable, so, if you don't want to fetch 
 
 
 * Set Back
-- cannot compile cask packages
+Please create issue if you encounter any problem. I use it for every package not already included in emacs.
 
 * To Do
 - [X] Compiling
 - [X] Updating 
+- [X] Compile Cask Packages
 - [ ] Cleaning
 
   
