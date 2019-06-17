@@ -20,11 +20,11 @@ Feel free to open issues and pull requests if you can offer any improvement or s
 
 
 * Alternatives
-+ Emacs built-in =packages.el= with [MELPA][https://melpa.org] or =Cask=. (Currently I am using =package.el= with =Cask=.
-+ [el-get][https://github.com/dimitri/el-get] - Look's Amazing to me. If you have packages from various types of locations: github, emacswiki, GNU ELPA or Marmalade, privately hosted pages, git, bzr, CVS, el-get is one of the goto choices.
-+ [straight.el][https://github.com/raxod502/straight.el] - It has a lot of features and many people swear by it
-+ [quelpa][https://framagit.org/steckerhalter/quelpa] - Old but still works great.
-+ [feather.el][https://github.com/conao3/feather.el] - This one seems to be similar to this packages but better. Haven't tried though.
++ Emacs built-in =packages.el= with [[https://melpa.org][MELPA]] or =Cask=. (Currently I am using =package.el= with =Cask=.
++ [[https://github.com/dimitri/el-get][el-get]] - Look's Amazing to me. If you have packages from various types of locations: github, emacswiki, GNU ELPA or Marmalade, privately hosted pages, git, bzr, CVS, el-get is one of the goto choices.
++ [[https://github.com/raxod502/straight.el][straight.el]] - It has a lot of features and many people swear by it
++ [[https://framagit.org/steckerhalter/quelpa][quelpa]] - Build and install your Emacs Lisp packages on-the-fly and directly from source.
++ [[https://github.com/conao3/feather.el][feather.el]] - This one seems to be similar to this packages but better. Haven't tried though.
 
 Use one of the above, since they are much better supported.
 
