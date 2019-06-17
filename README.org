@@ -1,13 +1,32 @@
 #+TITLE: EMACSIT
 #+AUTHOR: Sidharth Arya
 #+OPTIONS: toc:nil
-Emacsit is a new package manager for emacs. It's somewhat inspired from vim-plug. 
+Emacsit is a toy package manager for emacs. It's somewhat inspired from vim-plug. 
 
 #+TOC: headlines 1
 
 * Introduction
 
  The motivation behind emacsit is to let people easily get any package, from any source. Emacsit allows you to easily clone the required packages from any git repository and immediately put it in your emacs load file. It works on very basic functions, and it doesn't cause any freezes while it manages your packages. Some people do not care about putting there packages up on MELPA or ELPA, yet there packages are pretty good. Emacsit has been create for using such packages.
+
+The code for this project is extremely simple. Every package added to the list of packages is converted into a string of the form: "https://github.com/SidharthArya/emacsit@/home/user/.emacs.d/packages/SidharthArya/emacsit"
+So string before @ conveys the repository to be cloned and string after @ is the directory where the package is to be installed.
+So =emacsit-savedir= variable is used to specify the directory where all the packages are installed.
+It is absolutely required that the dependencies be installed before actual package. This process is manual and may require a few tries, since many packages do not mention clearly which packages they depend on.
+
+I created this package so that we can get a similar control, as Slackware or Gentoo Linux gives, but it seems like most emacs packages have dependencies which are not optional in nature, so there doesn't seem to be any explicit necessity for this package unless packages start giving optional compile features for their packages, which may be added complexity for other major packages managers. 
+
+Feel free to open issues and pull requests if you can offer any improvement or suggestion for this packages. 
+
+
+* Alternatives
++ Emacs built-in =packages.el= with [MELPA][https://melpa.org] or =Cask=. (Currently I am using =package.el= with =Cask=.
++ [el-get][https://github.com/dimitri/el-get] - Look's Amazing to me. If you have packages from various types of locations: github, emacswiki, GNU ELPA or Marmalade, privately hosted pages, git, bzr, CVS, el-get is one of the goto choices.
++ [straight.el][https://github.com/raxod502/straight.el] - It has a lot of features and many people swear by it
++ [quelpa][https://framagit.org/steckerhalter/quelpa] - Old but still works great.
++ [feather.el][https://github.com/conao3/feather.el] - This one seems to be similar to this packages but better. Haven't tried though.
+
+Use one of the above, since they are much better supported.
 
 * Basic Usage
 
@@ -53,8 +72,7 @@ These functions are also interactively callable, so, if you don't want to fetch 
 
 
 * Set Back
-Please create issue if you encounter any problem. I use it for every package not already included in emacs.
-
++ No dependency management
 * To Do
 - [X] Compiling
 - [X] Updating 
