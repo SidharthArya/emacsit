@@ -32,7 +32,7 @@ Use one of the above, since they are much better supported.
 
 All you have to do for configuration is to load the emacsit directory to your load path or load emacsit.el directly, and add a variable emacsit::packages which is the list of packages you want to install. 
 #+BEGIN_SRC bash
-git clone --depth=1 $HOME/.emacs.d/packages/sidhartharya10/emacsit
+git clone --depth=1 https://github.com/SidharthArya/emacsit $HOME/.emacs.d/packages/sidhartharya10/emacsit
 #+END_SRC
 
 Add this to your ~.emacs~ file. 
