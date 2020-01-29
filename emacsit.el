@@ -1,5 +1,9 @@
 ;; emacsit.el -- Packages manager
+
 (require 'subr-x)
+(defvar emacsit::cask-path
+  "Cask Path"
+  )
 (defun emacsit::initialize()
   "Initialize emacsit"
   (interactive)
@@ -8,9 +12,10 @@
 	      (concat
 	       emacsit::cask-path "/bin:"
 	       (getenv "PATH"))
-  )
+	      )
       
-  ))
+    ))
+
 (defun emacsit::preprocess(a)
   "Preprocess list"
   (if (not (equal (member "" (split-string (format "%s" a) "/")) nil))
@@ -32,10 +37,12 @@
       (progn
 	(setq emacsit::dir (car (cdr (split-string a "@"))))
 	(setq emacsit::url (car (split-string a "@")))
-	(async-shell-command (format "git clone --depth=1 --recursive %s %s && pushd %s && if [ -f Makefile ]; then make all; fi && popd" emacsit::url emacsit::dir emacsit::dir)))
-    )
-  a
+	    (async-shell-command (format "git clone --depth=1 --recursive %s %s ||git clone --recursive %s %s && pushd %s && if [ -f Makefile ]; then make all; fi && popd" emacsit::url emacsit::dir emacsit::url emacsit::dir emacsit::dir)))
+	)
+    a
   )
+
+
 (defun emacsit::clone-byte-compile(a)
   "Clone and Byte Compile Package"
   (if (not (equal a " "))
