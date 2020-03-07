@@ -4,17 +4,22 @@
 Emacsit is a toy package manager for emacs. It's somewhat inspired from vim-plug. 
 
 #+TOC: headlines 1
+* Changes
+Some changes have been made to this packages. 
++ =emacsit::get= now uses =start-process-shell-command= instead of =async-shell-command=
++ =emacsit::byte-compile-all= has been changed to =emacsit::compile-all=, since it uses Makefile if it finds one.
++ A news extension has been added =emacsit-repositories=. It can manage dependencies.
 
 * Introduction
 
- The motivation behind emacsit is to let people easily get any package, from any source. Emacsit allows you to easily clone the required packages from any git repository and immediately put it in your emacs load file. It works on very basic functions, and it doesn't cause any freezes while it manages your packages. Some people do not care about putting there packages up on MELPA or ELPA, yet there packages are pretty good. Emacsit has been create for using such packages.
+ The motivation behind emacsit is to let people easily get any package, from any source. Emacsit allows you to easily clone the required packages from any git repository and immediately put it in your emacs load file. It works on very basic functions, and it doesn't cause any freezes while it manages your packages. Some people do not care about putting there packages up on MELPA or ELPA, yet their packages are pretty good. Emacsit has been create for using such packages.
 
 The code for this project is extremely simple. Every package added to the list of packages is converted into a string of the form: "https://github.com/SidharthArya/emacsit@/home/user/.emacs.d/packages/SidharthArya/emacsit"
 So string before @ conveys the repository to be cloned and string after @ is the directory where the package is to be installed.
 So =emacsit-savedir= variable is used to specify the directory where all the packages are installed.
 It is absolutely required that the dependencies be installed before actual package. This process is manual and may require a few tries, since many packages do not mention clearly which packages they depend on.
 
-I created this package so that we can get a similar control, as Slackware or Gentoo Linux gives, but it seems like most emacs packages have dependencies which are not optional in nature, so there doesn't seem to be any explicit necessity for this package unless packages start giving optional compile features for their packages, which may be added complexity for other major packages managers. 
+I created this package so that we can get a similar control, as Slackware or Gentoo Linux. 
 
 Feel free to open issues and pull requests if you can offer any improvement or suggestion for this packages. 
 
@@ -22,11 +27,11 @@ Feel free to open issues and pull requests if you can offer any improvement or s
 * Alternatives
 + Emacs built-in =packages.el= with [[https://melpa.org][MELPA]] or =Cask=.
 + [[https://github.com/dimitri/el-get][el-get]] - Look's Amazing to me. If you have packages from various types of locations: github, emacswiki, GNU ELPA or Marmalade, privately hosted pages, git, bzr, CVS, el-get is one of the goto choices.
-+ [[https://github.com/raxod502/straight.el][straight.el]] - It has a lot of features and many people swear by it (Currently I use straight.el)
++ [[https://github.com/raxod502/straight.el][straight.el]] - It has a lot of features.
 + [[https://framagit.org/steckerhalter/quelpa][quelpa]] - Build and install your Emacs Lisp packages on-the-fly and directly from source.
 + [[https://github.com/conao3/feather.el][feather.el]] - This one seems to be similar to =emacsit= but better. Haven't tried though.
 
-Use one of the above, since they are much better supported.
+You may want to use one of the above, since they are much better supported.
 
 * Basic Usage
 
@@ -49,6 +54,7 @@ Add this to your ~.emacs~ file.
 			  https://code.orgmode.org/bzg/org-mode
 ))
 (setq emacsit::savedir "~/.emacs.d/packages")
+
 (emacsit::load)
 #+END_SRC
 
@@ -58,8 +64,8 @@ Following keybindings can be used.
 (define-key global-map (kbd "C-x p")  'emacsit)
 (define-key global-map (kbd "C-x p g")  'emacsit::get)
 (define-key global-map (kbd "C-x p l")  'emacsit::load)
-(define-key global-map (kbd "C-x p b")  'emacsit::byte-compile-all)
-(define-key global-map (kbd "C-x p u")  'emacsit::update)
+(define-key global-map (kbd "C-x p b")  'emacsit::compile-all)
+(define-key global-map (kbd "C-x p u")  'emacsit::update-all)
 #+END_SRC
 
 - Use ~C-x p g~ to downlaod packages.
@@ -70,13 +76,47 @@ Following keybindings can be used.
 The two functions *emacsit::get* and *emacsit::load* fetch the required packages and append then to your load path respectively.
 These functions are also interactively callable, so, if you don't want to fetch the packages every time you start emacs, remove emacsit::get from your configuration.
 
+There is no view for listing the running Emacsit processes. Emacs's =list-processes= can be used for listing the current running processes. Each process creates it's own buffer.
+Use =emacsit::logclear= to remove all the created buffers which the packages have been installed successfully.
 
+
+
+
+* Extension
+=emacsit-repositories.el= is an extension based on top of =emacsit.el=. It can manage dependencies out of the box. It requires a file which lists the dependencies of the packages before processing it. An example of this file is present as =emacsit-repositories=. Basic format is:
+#+begin_src text
+#PACKAGE-ALIAS@PACKAGE-SRC#DEPENDENCIES
+magit@magit/magit#dash transient with-editor
+magit@https://github.com/magit/magit#dash transient with-editor
+#+end_src
+** Basic Usage 
+   #+begin_src emacs-lisp
+     (require 'emacsit-repositories)
+     (setq emacsit-repositories::packages '(
+					    magit
+					    )
+	   (emacsit-repository::build-list)
+	   (emacsit::get)
+	   (emacsit::load)
+   #+end_src
+emacsit-repositories uses =emacsit-repository::packages= in order to build =emacsit::packages= 
+A custom file can be used by changing the variable as:
+#+begin_src emacs-lisp
+(setq emacsit-repository::repository-file "~/.emacs.d/emacsit-repositories")
+#+end_src
+emacsit-repositories.el can be used with use-package, it's not as sane as it should be but it works.
+To use it, add this your config.
+#+begin_src emacs-lisp
+(setq use-package-ensure-function 'emacsit-use-package-ensure)			       
+#+end_src
 * Set Back
-+ No dependency management
++ Not entirely written in lisp 
 * To Do
 - [X] Compiling
 - [X] Updating 
 - [X] Compile Cask Packages
+- [X] Dependency Management (through emacsit-repositories.el)
+- [ ] Description of various functions
 - [ ] Cleaning
 
   

@@ -1,0 +1,41 @@
+#PACKAGEALIAS@PACKAGESRCREMOTE#DEPENDENCIES
+evil@emacs-evil/evil#
+dashboard@emacs-dashboard/emacs-dashboard#purcell/page-break-lines
+use-package@jwiegley/use-package#
+alert@jwiegley/alert#
+async@jwiegley/emacs-async#
+magit@magit/magit#dash transient with-editor
+dash@magnars/dash.el#
+transient@magit/transient#
+with-editor@magit/with-editor#async
+elfeed@skeeto/elfeed#
+@remyhonig/elfeed-org#elfeed s dash
+s@magnars/s.el#
+emojify@iqbalansari/emacs-emojify#ht
+ht@Wilfred/ht.el#dash
+org@https://code.orgmode.org/bzg/org-mode.git#
+ivy@abo-abo/swiper#
+counsel@abo-abo/swiper#
+swiper@abo-abo/swiper#
+which-key@justbur/emacs-which-key#
+pdf-tools@politza/pdf-tools#tablist
+docker@Silex/docker.el#tablist dash s transient json-mode
+json-mode@joshwnj/json-mode#gongo/json-reformat Sterlingg/json-snatcher
+tablist@politza/tablist#
+company@company-mode/company-mode#
+yasnippet@joaotavora/yasnippet#
+yasnippet-snippets@AndreaCrotti/yasnippet-snippets#yasnippet
+flycheck@flycheck/flycheck#dash pkg-info
+pkg-info@emacsorphanage/pkg-info#epl
+epl@cask/epl#
+elpa@git://git.savannah.gnu.org/emacs/elpa.git#
+alert@jwiegley/alert#tekai/gntp.el log4e
+log4e@aki2o/log4e#
+org-drill@https://gitlab.com/phillord/org-drill#org persist
+persist@emacsmirror/persist#
+slack@yuya373/emacs-slack#alert circe emojify oauth2 request websocket
+oauth2@emacsmirror/oauth2#
+request@tkf/emacs-request#
+websocket@ahyatt/emacs-websocket#
+circe@jorgenschaefer/circe#
+wanderlust@wanderlust/wanderlust#wanderlust/apel wanderlust/flim wanderlust/semi
