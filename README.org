@@ -19,8 +19,6 @@ So string before @ conveys the repository to be cloned and string after @ is the
 So =emacsit-savedir= variable is used to specify the directory where all the packages are installed.
 It is absolutely required that the dependencies be installed before actual package. This process is manual and may require a few tries, since many packages do not mention clearly which packages they depend on.
 
-I created this package so that we can get a similar control, as Slackware or Gentoo Linux. 
-
 Feel free to open issues and pull requests if you can offer any improvement or suggestion for this packages. 
 
 
