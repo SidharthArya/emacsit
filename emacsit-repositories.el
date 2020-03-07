@@ -1,5 +1,4 @@
 (require 'emacsit)
-(require 'use-package)
 (require 'package)
 (package-initialize)
 (defcustom emacsit-repository::packages nil
@@ -50,7 +49,6 @@
 	      t
 	    -1)
 	      )))
-
 (defun emacsit-use-package-ensure (name args _state &optional _no-refresh)
   ;(message "%s:%s:%s:%s" name args _state _no-refresh)
   (let ((ensure-name nil)

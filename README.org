@@ -99,7 +99,7 @@ magit@https://github.com/magit/magit#dash transient with-editor
 	   (emacsit::get)
 	   (emacsit::load)
    #+end_src
-emacsit-repositories uses =emacsit-repository::packages= in order to build =emacsit::packages= 
+   emacsit-repositories uses =emacsit-repository::packages= in order to build =emacsit::packages= 
 A custom file can be used by changing the variable as:
 #+begin_src emacs-lisp
 (setq emacsit-repository::repository-file "~/.emacs.d/emacsit-repositories")
@@ -109,8 +109,37 @@ To use it, add this your config.
 #+begin_src emacs-lisp
 (setq use-package-ensure-function 'emacsit-use-package-ensure)			       
 #+end_src
+* How I use it
+  #+begin_src emacs-lisp
+
+(add-to-list 'load-path "/home/arya/.emacs.d/packages/SidharthArya/emacsit")
+(require 'emacsit)
+(setq emacsit::savedir "/home/arya/.emacs.d/packages")
+(setq emacsit::packages '(
+				     jwiegley/use-package
+				     ))
+
+(emacsit::load)
+(require 'use-package)
+(require 'emacsit-repositories)
+(setq use-package-ensure-function 'emacsit-use-package-ensure)			       
+(use-package flycheck
+:defer t
+:ensure t
+:ensure auto-complete/popup-el
+:ensure flycheck/flycheck-popup-tip
+:init
+(require 'flycheck-popup-tip)
+	:hook ((prog-mode . flycheck-mode)
+	       (prog-mode . flycheck-popup-tip-mode))
+)
+  #+end_src
+Note: In emacsit-repository, you can directly add a repository name or github url to ensure function to add it to your load-path.
+
 * Set Back
-+ Not entirely written in lisp 
+** Emacsit repository
++ Currently no way to find out which directories contain the .el files
++ Doesn't handle the async fetch operations with =use-package= very well. =use-package= tries to load while it's fetching, causing an initial error the first time it's loaded.
 * To Do
 - [X] Compiling
 - [X] Updating 
