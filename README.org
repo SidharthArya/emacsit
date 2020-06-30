@@ -21,7 +21,6 @@ It is absolutely required that the dependencies be installed before actual packa
 
 Feel free to open issues and pull requests if you can offer any improvement or suggestion for this packages. 
 
-
 * Alternatives
 + Emacs built-in =packages.el= with [[https://melpa.org][MELPA]] or =Cask=.
 + [[https://github.com/dimitri/el-get][el-get]] - Look's Amazing to me. If you have packages from various types of locations: github, emacswiki, GNU ELPA or Marmalade, privately hosted pages, git, bzr, CVS, el-get is one of the goto choices.
@@ -79,7 +78,6 @@ Use =emacsit::logclear= to remove all the created buffers which the packages hav
 
 
 
-
 * Extension
 =emacsit-repositories.el= is an extension based on top of =emacsit.el=. It can manage dependencies out of the box. It requires a file which lists the dependencies of the packages before processing it. An example of this file is present as =emacsit-repositories=. Basic format is:
 #+begin_src text
@@ -109,7 +107,6 @@ To use it, add this your config.
 #+end_src
 * How I use it
   #+begin_src emacs-lisp
-
 (add-to-list 'load-path "/home/arya/.emacs.d/packages/SidharthArya/emacsit")
 (require 'emacsit)
 (setq emacsit::savedir "/home/arya/.emacs.d/packages")
