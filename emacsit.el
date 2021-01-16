@@ -134,6 +134,21 @@
 (defun emacsit::logclear()
   "Clear all the log buffers"
   (interactive)
- (mapcar (lambda (a) (if (string-match-p "\*Emacsit.*\*" a) (kill-buffer a)))  (mapcar 'buffer-name (buffer-list))))
+  (mapcar (lambda (a) (if (string-match-p "\*Emacsit.*\*" a) (kill-buffer a)))  (mapcar 'buffer-name (buffer-list))))
+
+
+(defun emacsit::query-local-package (package)
+  "Query the local package directory for packages"
+  (interactive (list (read-string "Package: ")))
+  (cl-some (lambda (a) (if (equal (nth 1 (split-string a "/")) package)
+                          a
+                          )) (split-string (string-trim (shell-command-to-string (concat "find " emacsit::savedir " -maxdepth 2 -mindepth 2 | cut -c " (number-to-string (+ (length emacsit::savedir) 2)) "-" ))))))
+
+(defun emacsit::query-and-load (package)
+  "Query the local package directory for packages and load it"
+  (interactive (list (read-string "Package: ")))
+  (if (stringp package)
+      (emacsit::loadPackage (emacsit::preprocess (emacsit::query-local-package package)))))
+
 (emacsit::initialize)
 (provide 'emacsit)
